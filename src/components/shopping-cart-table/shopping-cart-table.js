@@ -55,10 +55,6 @@ const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) =
                 { items.map(renderRow) }
                 </tbody>
             </table>
-
-            <div className="total">
-                Total: ${ total }
-            </div>
         </div>
     );
 };
