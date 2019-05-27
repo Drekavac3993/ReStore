@@ -1,6 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const logMiddleware = ({ getState }) => (next) => (action) => {
     console.log(action.type, getState());
@@ -16,6 +18,15 @@ const stringMiddleware = () => (next) => (action) => {
     return next(action);
 };
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware, stringMiddleware, logMiddleware));
+const store = createStore(
+    reducer,
+    composeEnhancers(
+        applyMiddleware(
+            thunkMiddleware,
+            stringMiddleware,
+            logMiddleware,
+            )
+    )
+);
 
 export default store;
